@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import { NativeBaseProvider } from "native-base";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Books from '../pages/Books/index'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -21,6 +22,7 @@ export default function AppNavigation() {
         <Stack.Screen name="forgot-password" component={ForgotPassword} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />
+        <Stack.Screen name="books" component={Books} />
         <Stack.Screen name="tab" component={TabNavigation} />
       </Stack.Navigator>
     </NativeBaseProvider>
@@ -67,7 +69,7 @@ function TabNavigation() {
         />
         <Tab.Screen
           name="Favoritos"
-          component={Home}
+          component={Books}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="bookmark" color={color} size={size} />
