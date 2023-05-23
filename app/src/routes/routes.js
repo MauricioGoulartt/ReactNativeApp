@@ -8,6 +8,8 @@ import Home from "../pages/Home";
 import { NativeBaseProvider } from "native-base";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Books from '../pages/Books/index'
+import Search from "../pages/Search";
+import Profile from "../pages/Profile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,6 +26,8 @@ export default function AppNavigation() {
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="books" component={Books} />
         <Stack.Screen name="tab" component={TabNavigation} />
+        <Stack.Screen name="search" component={Search} />
+        <Stack.Screen name="profile" component={Profile} />
       </Stack.Navigator>
     </NativeBaseProvider>
   );
@@ -42,7 +46,7 @@ function TabNavigation() {
       >
         <Tab.Screen
           name="Perfil"
-          component={Home}
+          component={Profile}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="face-man-profile" color={color} size={size} />
@@ -60,7 +64,7 @@ function TabNavigation() {
         />
          <Tab.Screen
           name="Pesquisar"
-          component={Home}
+          component={Search}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="card-search" color={color} size={size} />

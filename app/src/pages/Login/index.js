@@ -11,17 +11,22 @@ import {
   HStack,
   Center,
   NativeBaseProvider,
+  Spinner,
+  Spacer,
+  Alert,
 } from "native-base";
 import api from '../../api'; // Altere esta linha
-
-// import { tabNavigation } from "../../routes/routes";
+import { useState } from "react";
 
 export default function Login({ navigation }) {
-  const [formData, setData] = React.useState({});
-  const [errors, setErrors] = React.useState({});
+  const [formData, setData] = useState({});
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [isNotConnected, setIsNotConnected] = useState(false);
 
   const onSubmit = () => {
-    validate() ? handleDashboard() : console.log('Validation Failed');
+    setLoading(true);
+    validate() ? handleDashboard() : setLoading(false) && setIsNotConnected(true);
   };
 
   const validate = () => {
@@ -29,9 +34,9 @@ export default function Login({ navigation }) {
       ...(formData.email === undefined ? { email: 'Name is required' } : {}),
       ...(formData.password === undefined ? { password: 'Password is required' } : {})
     };
-  
+
     setErrors(Object.assign({}, errors));
-  
+
     return Object.keys(errors).length === 0;
   };
 
@@ -41,8 +46,13 @@ export default function Login({ navigation }) {
       console.log('Usuário encontrado:', response.data);
       navigation.navigate('tab');
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
+      setIsNotConnected(true);
+      setTimeout(() => {
+        setIsNotConnected(false);
+      }, 3000);
       // Adicione aqui o tratamento de erro caso o usuário não exista ou a senha esteja incorreta
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -131,8 +141,31 @@ export default function Login({ navigation }) {
                 </Link>
               </FormControl>
               <Button onPress={onSubmit} mt="2" colorScheme="indigo">
-                Conectar
+                {
+                  loading ? <>
+                    <HStack space={2} alignItems="center">
+                      <Spinner accessibilityLabel="Loading posts" />
+                      <Heading color="primary.200" fontSize="md">
+                        <Text>Carregando</Text>
+                      </Heading>
+                    </HStack>
+                  </> : <Text>Conectar</Text>
+                }
               </Button>
+              <Spacer />
+              {isNotConnected &&
+                <Alert w="100%" colorScheme="error" status="error">
+                  <VStack space={2} flexShrink={1} w="100%">
+                    <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
+                      <HStack space={2} flexShrink={1} alignItems="center">
+                        <Alert.Icon />
+                        <Text>
+                          {`Erro ao se conectar! ${errors}`}
+                        </Text>
+                      </HStack>
+                    </HStack>
+                  </VStack>
+                </Alert>}
               <HStack mt="6" justifyContent="center">
                 <Text
                   fontSize="sm"
