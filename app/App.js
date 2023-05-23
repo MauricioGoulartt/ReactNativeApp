@@ -2,7 +2,7 @@ import React from 'react';
 import { NativeBaseProvider } from 'native-base';
 import AppNavigation from './src/routes/routes';
 import { NavigationContainer } from '@react-navigation/native';
-import axios from 'axios';
+// import axios from 'axios';
 import api from './src/api'
 
 export default function App() {
