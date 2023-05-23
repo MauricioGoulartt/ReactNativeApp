@@ -150,6 +150,7 @@ const Home = () => {
             <Text color="#07D962">Ver mais &gt;</Text>
           </Link>
         </Box>
+
         <BookList />
 
         <Box
@@ -165,6 +166,7 @@ const Home = () => {
             <Text color="#07D962">Ver mais &gt;</Text>
           </Link>
         </Box>
+        
         <BookList />
 
         <Box
