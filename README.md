@@ -1,2 +1,4 @@
-# book_tracker-mongo
-# b-tracker_mongo
+# React Native App
+
+- Aplicativo criado em React Native com MongoDB para fins educativos.
+
